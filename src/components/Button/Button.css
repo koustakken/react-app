@@ -3,15 +3,15 @@
 	padding: 8px 30px;
 	font-family: inherit;
 	cursor: pointer;
-	transition: background .25s;
+	transition: background 0.25s;
 	font-size: 16px;
 	border: none;
 }
 
 .accent:hover {
-	background: #646cff;
+	background: #222096;
 }
 
 .accent {
-	background: #312eb5;
+	background: #312EB5;
 }

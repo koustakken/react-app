@@ -1,40 +1,60 @@
+import React from 'react';
+
 import './App.css';
-import Button from './components/Button/Button';
-import JournalItem from './components/JournalItem/JournalItem';
-import CardButton from './components/CardButton/CardButton';
+
+import LeftPanel from './layouts/LeftPanel/LeftPanel'
+import Body from './layouts/Body/Body'
+
+import Header from './components/Header/Header'
+import JournalList from './components/JournalList/JournalList'
+import JournalAddButton from './components/JournalAddButton/JournalAddButton'
+import JournalForm from './components/JournalForm/JournalForm'
+
+const INITIAL_DATA = [
+	// {
+	// 	id: 1,
+	// 	title: 'title 1',
+	// 	date: new Date(),
+	// 	text: 'text 1'
+	// },
+	// {
+	// 	id: 2,
+	// 	title: 'title 2',
+	// 	date: new Date(),
+	// 	text: 'text 2'
+	// },
+	// {
+	// 	id: 3,
+	// 	title: 'title 3',
+	// 	date: new Date(),
+	// 	text: 'text 3'
+	// }
+];
 
 function App() {
 
-	const data = [
-		{
-			title: 'title 1',
-			date: new Date(),
-			text: 'text 1'
-		}, {
-			title: 'title 2',
-			date: new Date(),
-			text: 'text 2'
-		},
-		{
-			title: 'title 3',
-			date: new Date(),
-			text: 'text 3'
-		}];
+	const [items, setItems] = React.useState(INITIAL_DATA);
+
+	const addItem = (item) => {
+		setItems(prev => [...prev, {
+			text: item.post,
+			title: item.title,
+			date: new Date(item.date),
+			id: prev > 0 ? Math.max(...prev.map(i => i.id)) + 1 : 1
+		}]);
+	}
+
 	return (
-		<>
-			<h1>Text</h1>
-			<Button />
-			<CardButton>
-				New
-			</CardButton>
-			<CardButton>
-				<JournalItem
-					title={data[0].title}
-					date={data[0].date}
-					text={data[0].text}
-				/>
-			</CardButton>
-		</>
+		<div className='app'>
+			<LeftPanel>
+				<Header />
+				<JournalAddButton />
+				<JournalList items={items} />
+			</LeftPanel>
+			<Body>
+				<JournalForm onSubmit={addItem} />
+			</Body>
+		</div>
 	);
 }
 
